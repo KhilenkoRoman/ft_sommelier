@@ -1,8 +1,5 @@
 import csv
-import matplotlib
 import matplotlib.pyplot as plt
-
-import numpy as np
 
 
 def plot_scatter_matrix(wine_data, good_threshold, bad_threshold, save_plot=False):
@@ -12,13 +9,12 @@ def plot_scatter_matrix(wine_data, good_threshold, bad_threshold, save_plot=Fals
 	except FileNotFoundError as err:
 		print(err.args)
 		return 0
+	except Exception:
+		print('dich')
+		return 0
 
-	# for parameter in data[0]:
-	# 	print(parameter)
-
-	print(data[0])
-	data.pop(0)
-	# print(data)
+	legend = data.pop(0)
+	size = len(legend) - 1
 
 	good_list = []
 	bad_list = []
@@ -31,14 +27,29 @@ def plot_scatter_matrix(wine_data, good_threshold, bad_threshold, save_plot=Fals
 	good_list = list(zip(*good_list))
 	bad_list = list(zip(*bad_list))
 
-	print(len(good_list[2]))
+	index = 1
+	plt.figure(num=None, figsize=(16, 12), dpi=160, facecolor='w', edgecolor='k')
+	for i in range(size):
+		for j in range(size):
+			if i == j:
+				ax = plt.subplot(size, size, index)
+				plt.text(0.5, 0.5, legend[i], horizontalalignment='center',
+						 verticalalignment='center', transform=ax.transAxes)
+				plt.xticks([])
+				plt.yticks([])
+			else:
+				ax = plt.subplot(size, size, index)
+				if len(good_list) > 0:
+					ax.plot(good_list[j], good_list[i], 'o', c='g', ms=1)
+				if len(bad_list) > 0:
+					ax.plot(bad_list[j], bad_list[i], 'o', c='r', ms=1)
+				plt.xticks([])
+				plt.yticks([])
+			index += 1
 
-	matplotlib.rcParams['axes.unicode_minus'] = False
-	fig, ax = plt.subplots()
-	ax.plot(good_list[2], good_list[4], 'o', c='g')
-	ax.plot(bad_list[2], bad_list[4], 'o', c='r')
-	ax.set_title('Using hyphen instead of Unicode minus')
+	if save_plot:
+		plt.savefig("scater_plot_vinisko.png")
 	plt.show()
 
 
-plot_scatter_matrix("./resources/winequality-red.csv", 6, 5)
+plot_scatter_matrix("./resources/winequality-white.csv", 7, 4, save_plot=True)
