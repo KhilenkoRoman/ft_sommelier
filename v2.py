@@ -3,7 +3,6 @@ import random
 from random import choice
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-import numpy as np
 
 random.seed(12345)
 
@@ -59,7 +58,8 @@ def perceptron(wine_data, epoch_limit=1000, good_thresh=8, bad_thresh=3, learnin
 				errors += 1
 			for t in rlenth:
 				weights[t] += float(tmp_data[t]) * error * learning_rate
-
+		if errors == 0:
+			break
 		output_data.append((epoch, errors, weights))
 		epoch += 1
 	return output_data
@@ -97,27 +97,75 @@ def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, s
 	good_data = list(zip(*good_data))
 	bad_data = list(zip(*bad_data))
 
-	plt.figure(num=None, figsize=(8, 4), dpi=80, facecolor='w', edgecolor='k')
+	if max(good_data[1]) > max(bad_data[1]):
+		x_max = max(good_data[1])
+	else:
+		x_max = max(bad_data[1])
+	if min(good_data[1]) < min(bad_data[1]):
+		x_min = min(good_data[1])
+	else:
+		x_min = min(bad_data[1])
 
+	if max(good_data[0]) > max(bad_data[0]):
+		y_max = max(good_data[0])
+	else:
+		y_max = max(bad_data[0])
+	if min(good_data[0]) < min(bad_data[0]):
+		y_min = min(good_data[0])
+	else:
+		y_min = min(bad_data[0])
+
+	x_min = x_min - x_min * 0.05
+	x_max = x_max + x_max * 0.05
+	y_min = y_min - y_min * 0.05
+	y_max = y_max + y_max * 0.05
+
+	weights = performance[-1][2]
+	plt.figure(num=None, figsize=(8, 4), dpi=80, facecolor='w', edgecolor='k')
 	ax = plt.subplot(1, 2, 2)
 
-	# xcoords = [0.22058956, 0.33088437, 2.20589566]
-	# for xc in xcoords:
-	x = [1, 2]
-	y = [1, 2]
-	# ax.plot(x, y)
+	x_intercept = [0, -weights[0] / weights[2]]
+	y_intercept = [-weights[0] / weights[1], 0]
+	ax.margins(x=0, y=0)
 
-	ax.fill_between(x, 2, y, facecolor='#ffd7ff')
-	ax.fill_between(x, 1, y, facecolor='#d5edd8')
+	line = Line2D(x_intercept, y_intercept, linewidth=1, color="blue", linestyle="dashed")
+	ax.add_line(line)
+
+
+	step_function = lambda x: 0 if x < 0 else 1
+	result = 1*weights[0] + y_min*weights[1] + x_min*weights[2]
+	if step_function(result) == 0:
+		down_col = '#ffd7ff'
+		up_col = '#d5edd8'
+	else:
+		down_col = '#d5edd8'
+		up_col = '#ffd7ff'
+
+	ax.fill_between(x_intercept, y_min, y_intercept, facecolor=down_col)
+	ax.fill_betweenx(y_intercept, x_min, x_intercept, facecolor=down_col)
+
+	ax.fill_between(x_intercept, y_max, y_intercept, facecolor=up_col)
+	ax.fill_betweenx(y_intercept, x_max, x_intercept, facecolor=up_col)
 
 	if len(good_data) > 0:
 		ax.plot(good_data[1], good_data[0], 'o', c='g', ms=3)
 	if len(bad_data) > 0:
 		ax.plot(bad_data[1], bad_data[0], 'o', c='r', ms=3)
 
+	ax.set_xlim(x_min, x_max)
+	ax.set_ylim(y_min, y_max)
+
+	ax1 = plt.subplot(1, 2, 1)
+	errors = []
+	epochs = []
+	for elem in performance:
+		errors.append(elem[1])
+		epochs.append(elem[0])
+	ax1.plot(epochs, errors)
+
 	plt.show()
 
 
 if __name__ == '__main__':
-	performance = perceptron("./resources/winequality-white.csv", epoch_limit=1000, learning_rate=0.2)
-	plot_preformace(performance, "./resources/winequality-white.csv", good_thresh=8, bad_thresh=3, save_plot=True)
+	performance = perceptron("./resources/winequality-red.csv", epoch_limit=20000, learning_rate=0.01)
+	plot_preformace(performance, "./resources/winequality-red.csv", good_thresh=8, bad_thresh=3, save_plot=True)
