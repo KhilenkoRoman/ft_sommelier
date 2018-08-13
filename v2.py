@@ -58,9 +58,9 @@ def perceptron(wine_data, epoch_limit=1000, good_thresh=8, bad_thresh=3, learnin
 				errors += 1
 			for t in rlenth:
 				weights[t] += float(tmp_data[t]) * error * learning_rate
+		output_data.append((epoch, errors, weights))
 		if errors == 0:
 			break
-		output_data.append((epoch, errors, weights))
 		epoch += 1
 	return output_data
 
@@ -120,15 +120,27 @@ def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, s
 	y_min = y_min - y_min * 0.05
 	y_max = y_max + y_max * 0.05
 
-	weights = performance[-1][2]
+	len_p = len(performance)
+	if epoch <= 0:
+		limit = len_p-1
+	elif epoch >= len_p:
+		limit = len_p-1
+	else:
+		limit = epoch
+
+	weights = performance[limit][2]
+	print(performance)
 	plt.figure(num=None, figsize=(8, 4), dpi=80, facecolor='w', edgecolor='k')
 	ax = plt.subplot(1, 2, 2)
 
-	x_intercept = [0, -weights[0] / weights[2]]
-	y_intercept = [-weights[0] / weights[1], 0]
+	line_x = [0, x_max]
+	line_y = [-weights[0] / weights[1], (-weights[0] - weights[2] * x_max) / weights[1]]
+
+
+
 	ax.margins(x=0, y=0)
 
-	line = Line2D(x_intercept, y_intercept, linewidth=1, color="blue", linestyle="dashed")
+	line = Line2D(line_x, line_y, linewidth=1, color="blue", linestyle="dashed")
 	ax.add_line(line)
 
 
@@ -141,11 +153,11 @@ def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, s
 		down_col = '#d5edd8'
 		up_col = '#ffd7ff'
 
-	ax.fill_between(x_intercept, y_min, y_intercept, facecolor=down_col)
-	ax.fill_betweenx(y_intercept, x_min, x_intercept, facecolor=down_col)
+	ax.fill_between(line_x, y_min, line_y, facecolor=down_col)
+	# ax.fill_betweenx(line_x, x_min, line_y, facecolor=down_col)
 
-	ax.fill_between(x_intercept, y_max, y_intercept, facecolor=up_col)
-	ax.fill_betweenx(y_intercept, x_max, x_intercept, facecolor=up_col)
+	ax.fill_between(line_x, y_max, line_y, facecolor=up_col)
+	# ax.fill_betweenx(x_max_intercept, x_max, x_intercept, facecolor=up_col)
 
 	if len(good_data) > 0:
 		ax.plot(good_data[1], good_data[0], 'o', c='g', ms=3)
@@ -158,14 +170,20 @@ def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, s
 	ax1 = plt.subplot(1, 2, 1)
 	errors = []
 	epochs = []
-	for elem in performance:
+
+	for elem in performance[:limit+1]:
 		errors.append(elem[1])
 		epochs.append(elem[0])
 	ax1.plot(epochs, errors)
 
+	if save_plot:
+		plt.savefig("v2.png")
 	plt.show()
 
 
 if __name__ == '__main__':
 	performance = perceptron("./resources/winequality-red.csv", epoch_limit=20000, learning_rate=0.01)
 	plot_preformace(performance, "./resources/winequality-red.csv", good_thresh=8, bad_thresh=3, save_plot=True)
+
+
+# [6.196619872545253, -7.277130830537782, 1.7312065092537998]
