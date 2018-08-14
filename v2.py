@@ -147,7 +147,7 @@ def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, s
 	ax = plt.subplot(1, 2, 2)
 	plt.xlabel(legend[10])
 	plt.ylabel(legend[8])
-	plt.title("Decision boundary on epoch: " + str(limit))
+	plt.title("Decision boundary on epoch: " + str(limit + 1))
 	ax.margins(x=0, y=0)
 
 	# draving boundary line

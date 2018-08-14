@@ -17,9 +17,9 @@ def plot_scatter_matrix(wine_data, good_threshold, bad_threshold, save_plot=Fals
     good_list = []
     bad_list = []
     for i in data:
-        if int(i[-1]) >= good_threshold:
+        if int(i[-1]) > good_threshold:
             good_list.append(i)
-        if int(i[-1]) <= bad_threshold:
+        if int(i[-1]) < bad_threshold:
             bad_list.append(i)
 
     good_list = list(zip(*good_list))
@@ -51,4 +51,4 @@ def plot_scatter_matrix(wine_data, good_threshold, bad_threshold, save_plot=Fals
 
 
 if __name__ == '__main__':
-    plot_scatter_matrix("./resources/winequality-white.csv", 8, 4, save_plot=True)
+    plot_scatter_matrix("./resources/winequality-red.csv", 6, 5, save_plot=True)
