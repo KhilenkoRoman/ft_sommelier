@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d516a50-2739-46a2-8a06-91744ecce117" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/v3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scater_plot_vinisko.png" beforeDir="false" afterPath="$PROJECT_DIR$/scater_plot_vinisko.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/v1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qwe.py" beforeDir="false" afterPath="$PROJECT_DIR$/qwe.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/v2.png" beforeDir="false" afterPath="$PROJECT_DIR$/v2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/v3.py" beforeDir="false" afterPath="$PROJECT_DIR$/v3.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +15,8 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/vinishko$v1.coverage" NAME="v1 Coverage Results" MODIFIED="1534171641720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/vinishko$qwe.coverage" NAME="qwe Coverage Results" MODIFIED="1533821959400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/vinishko$v3.coverage" NAME="v3 Coverage Results" MODIFIED="1534263675595" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/vinishko$qwe.coverage" NAME="qwe Coverage Results" MODIFIED="1534422513852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/vinishko$v3.coverage" NAME="v3 Coverage Results" MODIFIED="1534423163391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/vinishko$v2.coverage" NAME="v2 Coverage Results" MODIFIED="1534263513520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -40,10 +37,11 @@
     <session id="-1122960131">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.19" value="2" />
@@ -53,7 +51,7 @@
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -61,7 +59,7 @@
           <entry key="csv" value="5" />
           <entry key="gitignore" value="1" />
           <entry key="png" value="1" />
-          <entry key="py" value="12" />
+          <entry key="py" value="14" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -70,19 +68,19 @@
           <entry key="CSV" value="4" />
           <entry key="Image" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="12" />
+          <entry key="Python" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="5780" />
+          <entry key="py" value="6829" />
           <entry key="txt" value="233" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="233" />
-          <entry key="Python" value="5780" />
+          <entry key="Python" value="6829" />
         </counts>
       </usages-collector>
     </session>
@@ -92,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="141" selection-start-line="141" selection-end-line="141" />
+            <state relative-caret-position="242">
+              <caret line="46" lean-forward="true" selection-start-line="39" selection-start-column="4" selection-end-line="46" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -104,11 +102,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/v3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1230">
-              <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+            <state relative-caret-position="498">
+              <caret line="106" column="77" selection-start-line="106" selection-start-column="77" selection-end-line="106" selection-end-column="77" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1534263651000" expanded="true" signature="612:632" ph="..." />
+                <marker date="1534423163000" expanded="true" signature="189:527" ph="..." />
+                <marker date="1534423163000" expanded="true" signature="619:621" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/qwe.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,11 +159,11 @@
         <option value="$PROJECT_DIR$/venv/v2.py" />
         <option value="$PROJECT_DIR$/plot_svm_margin.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/qwe.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/v1.py" />
-        <option value="$PROJECT_DIR$/v3.py" />
         <option value="$PROJECT_DIR$/v2.py" />
+        <option value="$PROJECT_DIR$/qwe.py" />
+        <option value="$PROJECT_DIR$/v3.py" />
       </list>
     </option>
   </component>
@@ -349,10 +360,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.v3" />
+        <item itemvalue="Python.qwe" />
         <item itemvalue="Python.v2" />
         <item itemvalue="Python.v1" />
         <item itemvalue="Python.plot_svm_margin" />
-        <item itemvalue="Python.qwe" />
       </list>
     </recent_temporary>
   </component>
@@ -372,7 +383,7 @@
   <component name="ToolWindowManager">
     <frame x="424" y="219" width="1755" height="1065" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28779918" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29130182" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -444,13 +455,6 @@
     <entry file="file://$PROJECT_DIR$/vinisko.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/qwe.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-end-line="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -470,8 +474,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="141" selection-start-line="141" selection-end-line="141" />
+        <state relative-caret-position="242">
+          <caret line="46" lean-forward="true" selection-start-line="39" selection-start-column="4" selection-end-line="46" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qwe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -480,11 +494,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/v3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+        <state relative-caret-position="498">
+          <caret line="106" column="77" selection-start-line="106" selection-start-column="77" selection-end-line="106" selection-end-column="77" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1534263651000" expanded="true" signature="612:632" ph="..." />
+            <marker date="1534423163000" expanded="true" signature="189:527" ph="..." />
+            <marker date="1534423163000" expanded="true" signature="619:621" ph="..." />
           </folding>
         </state>
       </provider>
