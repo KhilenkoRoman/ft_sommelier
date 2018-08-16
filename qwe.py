@@ -97,7 +97,7 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 	# y = np.where(y == 'Iris-setosa', -1, 1)
 	# x = df.iloc[0:100, [0, 2]].values
 
-	ada = AdalineGD(epochs=1, eta=0.0001).train(x_array, y_array)
+	ada = AdalineGD(epochs=1000, eta=0.00001).train(x_array, y_array)
 	print(ada.predict(x_array))
 	plt.plot(range(1, len(ada.cost_) + 1), ada.cost_, marker='o')
 	plt.xlabel('Iterations')

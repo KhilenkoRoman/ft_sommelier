@@ -74,6 +74,8 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 			errors.append(y_array[i] - output[i])
 		feedback = [0] * 3
 		feedback[0] = sum(errors)
+
+		# updating weights
 		t_x_array = transform(x_array)
 		for i in range(len(t_x_array) - 1):
 			for j in range(len(errors)):
@@ -84,8 +86,9 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 		for error in errors:
 			cost += error**2
 		cost = cost / 2.0
-		result_errors = 0
 
+		# calculating errors
+		result_errors = 0
 		predictions = predict(x_array, weights[:])
 		for i in range(len(y_array)):
 			if y_array[i] != predictions[i]:
@@ -170,10 +173,10 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 	weights = performance[limit][2]
 
 	# main plot
-	plt.figure(num=None, figsize=(10, 4), dpi=160, facecolor='w', edgecolor='k')
+	plt.figure(num=None, figsize=(10, 6), dpi=160, facecolor='w', edgecolor='k')
 
 	# --boundary plot--
-	ax = plt.subplot(1, 2, 2)
+	ax = plt.subplot(2, 2, 2)
 	plt.xlabel(legend[10])
 	plt.ylabel(legend[8])
 	plt.title("Decision boundary on epoch: " + str(limit + 1))
@@ -214,7 +217,7 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 	ax.legend(handles, labels, loc = 'upper right', bbox_to_anchor=(1.7, 1))
 
 	# --errors of eposh plot--
-	ax1 = plt.subplot(1, 2, 1)
+	ax1 = plt.subplot(2, 2, 1)
 	plt.xlabel("Epoch")
 	plt.ylabel("Clasification error")
 	plt.title("Errors as a function of epoch")
@@ -227,12 +230,23 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 		epochs.append(elem[0])
 	ax1.plot(epochs, errors)
 
+	# --summ square errors eposh plot--
+	ax2 = plt.subplot(2, 2, 3)
+	plt.xlabel("Epoch")
+	plt.ylabel("Sum squared error")
+	plt.title("Sum squared error as a function of epoch")
+	cost = []
+
+	for elem in performance[:limit + 1]:
+		cost.append(elem[3])
+	ax2.plot(epochs, cost)
+
 	#save show plot
 	if save_plot:
-		plt.savefig("v2.png")
+		plt.savefig("v3.png")
 	plt.show()
 
 
 if __name__ == '__main__':
-	performance = adaline("./resources/winequality-red.csv", epoch_limit=1000, learning_rate=0.0001)
-	plot_preformace_adaline(performance, "./resources/winequality-red.csv", good_thresh=7, bad_thresh=4, save_plot=True)
+	performance = adaline("./resources/winequality-red.csv", epoch_limit=10000, learning_rate=0.00001, good_thresh=6, bad_thresh=5)
+	plot_preformace_adaline(performance, "./resources/winequality-red.csv", good_thresh=6, bad_thresh=5, save_plot=False)

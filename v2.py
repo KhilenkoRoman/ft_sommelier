@@ -206,4 +206,4 @@ def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, s
 
 if __name__ == '__main__':
 	performance = perceptron("./resources/winequality-red.csv", epoch_limit=20000, learning_rate=0.01)
-	plot_preformace(performance, "./resources/winequality-red.csv", good_thresh=7, bad_thresh=4, save_plot=True)
+	plot_preformace(performance, "./resources/winequality-red.csv", good_thresh=7, bad_thresh=4, save_plot=False)
