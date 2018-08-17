@@ -22,7 +22,6 @@ def predict(input_list, weights_list):
 		prediction.append(step_function(pr))
 	return prediction
 
-
 def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_rate=0.0001):
 	try:
 		with open(wine_data, newline='') as csvfile:
@@ -41,18 +40,18 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 	y_array = []
 	index = 0
 	for i in range(len(raw_data)):
-		if int(raw_data[i][11]) > good_thresh:
+		if int(raw_data[i][2]) > good_thresh:
 			x_array.append([])
 			x_array[index].append(1)
-			x_array[index].append(float(raw_data[i][8]))
-			x_array[index].append(float(raw_data[i][10]))
+			x_array[index].append(float(raw_data[i][0]))
+			x_array[index].append(float(raw_data[i][1]))
 			y_array.append(1)
 			index += 1
-		elif int(raw_data[i][11]) < bad_thresh:
+		elif int(raw_data[i][2]) < bad_thresh:
 			x_array.append([])
 			x_array[index].append(1)
-			x_array[index].append(float(raw_data[i][8]))
-			x_array[index].append(float(raw_data[i][10]))
+			x_array[index].append(float(raw_data[i][0]))
+			x_array[index].append(float(raw_data[i][1]))
 			y_array.append(-1)
 			index += 1
 
@@ -72,7 +71,7 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 		errors = []
 		for i in range(len(x_array)):
 			errors.append(y_array[i] - output[i])
-		feedback = [0] * 3
+		feedback = [0] * len(weights)
 		feedback[0] = sum(errors)
 
 		# updating weights
@@ -101,7 +100,70 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 	return output_data
 
 
-def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epoch=-1, save_plot=False):
+def perceptron(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_rate=0.2):
+	try:
+		with open(wine_data, newline='') as csvfile:
+			raw_data = list(csv.reader(csvfile, delimiter=';'))
+	except FileNotFoundError as err:
+		print(err.args)
+		return 0
+	except Exception:
+		print('dich')
+		return 0
+
+	# data prepare
+	legend = raw_data.pop(0)
+	data = []
+	index = 0
+	for i in range(len(raw_data)):
+		if int(raw_data[i][2]) > good_thresh:
+			data.append([])
+			data[index].append(1)
+			data[index].append(float(raw_data[i][0]))
+			data[index].append(float(raw_data[i][1]))
+			data[index].append(1)
+			index += 1
+		elif int(raw_data[i][2]) < bad_thresh:
+			data.append([])
+			data[index].append(1)
+			data[index].append(float(raw_data[i][0]))
+			data[index].append(float(raw_data[i][1]))
+			data[index].append(0)
+			index += 1
+	#
+	# prepare vars and step_function for training
+	weights = [random.random(), random.random(), random.random()]
+	epoch = 0
+	rlenth = range(len(weights))
+	step_function = lambda x: 0 if x < 0 else 1
+	output_data = []
+	# output_data shoul look like [(current_epoch, num_errors_at_epoch_end, [array_of_weights]), ...]
+
+	# training
+	while epoch < epoch_limit:
+		errors = 0
+		for tmp_data in data:
+			result = 0
+			for j in rlenth:
+				result += float(tmp_data[j]) * weights[j]
+
+			# calculating error
+			error = int(tmp_data[3]) - step_function(result)
+			if error != 0:
+				errors += 1
+
+			# updating weights
+			for t in rlenth:
+				weights[t] += float(tmp_data[t]) * error * learning_rate
+
+		output_data.append((epoch, errors, weights[:]))
+		if errors == 0:
+			break
+		epoch += 1
+	return output_data
+
+
+def plot_preformace(performance, wine_data, good_thresh, bad_thresh, epoch=-1, save_plot=False):
 	try:
 		with open(wine_data, newline='') as csvfile:
 			raw_data = list(csv.reader(csvfile, delimiter=';'))
@@ -119,15 +181,15 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 	index_g = 0
 	index_b = 0
 	for i in range(len(raw_data)):
-		if int(raw_data[i][11]) > good_thresh:
+		if int(raw_data[i][2]) > good_thresh:
 			good_data.append([])
-			good_data[index_g].append(float(raw_data[i][8]))
-			good_data[index_g].append(float(raw_data[i][10]))
+			good_data[index_g].append(float(raw_data[i][0]))
+			good_data[index_g].append(float(raw_data[i][1]))
 			index_g += 1
-		elif int(raw_data[i][11]) < bad_thresh:
+		elif int(raw_data[i][2]) < bad_thresh:
 			bad_data.append([])
-			bad_data[index_b].append(float(raw_data[i][8]))
-			bad_data[index_b].append(float(raw_data[i][10]))
+			bad_data[index_b].append(float(raw_data[i][0]))
+			bad_data[index_b].append(float(raw_data[i][1]))
 			index_b += 1
 
 	# matrix transform (.T)
@@ -173,12 +235,12 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 	weights = performance[limit][2]
 
 	# main plot
-	plt.figure(num=None, figsize=(10, 6), dpi=160, facecolor='w', edgecolor='k')
+	plt.figure(num=None, figsize=(10, 4), dpi=160, facecolor='w', edgecolor='k')
 
 	# --boundary plot--
-	ax = plt.subplot(2, 2, 2)
-	plt.xlabel(legend[10])
-	plt.ylabel(legend[8])
+	ax = plt.subplot(1, 2, 2)
+	plt.xlabel(legend[0])
+	plt.ylabel(legend[1])
 	plt.title("Decision boundary on epoch: " + str(limit + 1))
 	ax.margins(x=0, y=0)
 
@@ -217,7 +279,7 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 	ax.legend(handles, labels, loc = 'upper right', bbox_to_anchor=(1.7, 1))
 
 	# --errors of eposh plot--
-	ax1 = plt.subplot(2, 2, 1)
+	ax1 = plt.subplot(1, 2, 1)
 	plt.xlabel("Epoch")
 	plt.ylabel("Clasification error")
 	plt.title("Errors as a function of epoch")
@@ -230,23 +292,13 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 		epochs.append(elem[0])
 	ax1.plot(epochs, errors)
 
-	# --summ square errors eposh plot--
-	ax2 = plt.subplot(2, 2, 3)
-	plt.xlabel("Epoch")
-	plt.ylabel("Sum squared error")
-	plt.title("Sum squared error as a function of epoch")
-	cost = []
-
-	for elem in performance[:limit + 1]:
-		cost.append(elem[3])
-	ax2.plot(epochs, cost)
-
 	#save show plot
 	if save_plot:
-		plt.savefig("v3.png")
+		plt.savefig("v2.png")
 	plt.show()
 
 
 if __name__ == '__main__':
-	performance = adaline("./resources/winequality-red.csv", epoch_limit=2000, learning_rate=0.0001, good_thresh=7, bad_thresh=4)
-	plot_preformace_adaline(performance, "./resources/winequality-red.csv", good_thresh=7, bad_thresh=4, save_plot=False)
+	# performance = perceptron("./resources/Pan Galactic Gargle Blaster.csv", epoch_limit=1000, learning_rate=0.0001)
+	performance = adaline("./resources/Pan Galactic Gargle Blaster.csv", epoch_limit=1000, learning_rate=0.0001)
+	plot_preformace(performance, "./resources/Pan Galactic Gargle Blaster.csv", good_thresh=7, bad_thresh=4, save_plot=False)

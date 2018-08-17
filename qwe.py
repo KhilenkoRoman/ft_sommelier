@@ -1,116 +1,46 @@
-import csv
-import random
-from v2 import plot_preformace
+"""
+=========================
+Simple animation examples
+=========================
+
+This example contains two animations. The first is a random walk plot. The
+second is an image animation.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-
-random.seed(12345)
-
-def transform(input_matrix):
-	res = list(zip(*input_matrix))
-	return res
+import matplotlib.animation as animation
 
 
-def dot(a,b):
-	zip_b = zip(*b)
-	zip_b = list(zip_b)
-	return [[sum(ele_a*ele_b for ele_a, ele_b in zip(row_a, col_b))
-			 for col_b in zip_b] for row_a in a]
+def update_line(num, data, line):
+    line.set_data(data[..., :num])
+    return line,
 
-class AdalineGD(object):
+fig1 = plt.figure()
 
-	def __init__(self, eta=0.01, epochs=50):
-		self.eta = eta
-		self.epochs = epochs
+data = np.random.rand(2, 25)
+l, = plt.plot([], [], 'r-')
+plt.xlim(0, 1)
+plt.ylim(0, 1)
+plt.xlabel('x')
+plt.title('test')
+line_ani = animation.FuncAnimation(fig1, update_line, 25, fargs=(data, l),
+                                   interval=50, blit=True)
+line_ani.save('lines.html')
+# To save the animation, use the command: line_ani.save('lines.mp4')
 
-	def train(self, inp, expext):
+fig2 = plt.figure()
 
-		y = np.array(expext)
-		X = np.array(inp)
+x = np.arange(-9, 10)
+y = np.arange(-9, 10).reshape(-1, 1)
+base = np.hypot(x, y)
+ims = []
+for add in np.arange(15):
+    ims.append((plt.pcolor(x, y, base + add, norm=plt.Normalize(0, 30)),))
 
-		# self.w_ = np.zeros(1 + X.shape[1])
-		self.w_ = [random.random(), random.random(), random.random()]
-		self.cost_ = []
+im_ani = animation.ArtistAnimation(fig2, ims, interval=50, repeat_delay=3000,
+                                   blit=True)
+# To save this second animation with some metadata, use the following command:
+im_ani.save('im.html', metadata={'artist':'Guido'})
 
-		for i in range(self.epochs):
-			output = np.dot(X, self.w_[1:]) + self.w_[0]
-			errors = (y - output)
-			self.w_[1:] += self.eta * X.T.dot(errors)
-			self.w_[0] += self.eta * errors.sum()
-
-			# [0.38997930067274705, -0.07845150454852957, 0.5210810914812147]
-			cost = (errors**2).sum() / 2.0
-			# 35486.00348494256
-			self.cost_.append(cost)
-		return self
-
-	def print_weights(self):
-		print(self.w_)
-
-	def net_input(self, X):
-		return np.dot(X, self.w_[1:]) + self.w_[0]
-
-	def activation(self, X):
-		return self.net_input(X)
-
-	def predict(self, X):
-		return np.where(self.activation(X) >= 0.0, 1, -1)
-
-def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_rate=0.2):
-	try:
-		with open(wine_data, newline='') as csvfile:
-			raw_data = list(csv.reader(csvfile, delimiter=';'))
-	except FileNotFoundError as err:
-		print(err.args)
-		return 0
-	except Exception:
-		print('dich')
-		return 0
-
-	# data prepare
-	# traning on pH(legend[8]) and alcohol(legend[10]) parameters
-	legend = raw_data.pop(0)
-	x_array = []
-	y_array = []
-	index = 0
-	for i in range(len(raw_data)):
-		if int(raw_data[i][11]) > good_thresh:
-			x_array.append([])
-			x_array[index].append(float(raw_data[i][8]))
-			x_array[index].append(float(raw_data[i][10]))
-			y_array.append(1)
-			index += 1
-		elif int(raw_data[i][11]) < bad_thresh:
-			x_array.append([])
-			x_array[index].append(float(raw_data[i][8]))
-			x_array[index].append(float(raw_data[i][10]))
-			y_array.append(-1)
-			index += 1
-
-	# x_array = np.array(x_array)
-	# y_array = np.array(y_array)
-
-	# df = pd.read_csv('iris.data', header=None)
-	# # setosa and versicolor
-	# y = df.iloc[0:100, 4].values
-	# y = np.where(y == 'Iris-setosa', -1, 1)
-	# x = df.iloc[0:100, [0, 2]].values
-
-	ada = AdalineGD(epochs=1000, eta=0.00001).train(x_array, y_array)
-	print(ada.predict(x_array))
-	plt.plot(range(1, len(ada.cost_) + 1), ada.cost_, marker='o')
-	plt.xlabel('Iterations')
-	plt.ylabel('Sum-squared-error')
-	plt.title('Adaline - Learning rate 0.0001')
-	plt.show()
-
-	# ada.print_weights()
-
-
-
-
-
-if __name__ == '__main__':
-	performance = adaline("./resources/winequality-red.csv", epoch_limit=100, learning_rate=0.01)
-	# plot_preformace(performance, "./resources/winequality-red.csv", good_thresh=7, bad_thresh=4, save_plot=True)
+plt.show()
