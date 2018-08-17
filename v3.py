@@ -62,6 +62,7 @@ def adaline(wine_data, epoch_limit=1000, good_thresh=7, bad_thresh=4, learning_r
 	output_data = []
 	# output_data shoul look like [(current_epoch, num_errors_at_epoch_end, [array_of_weights]), summ_squared_error]
 
+	print(x_array)
 	# training
 	while epoch < epoch_limit:
 		output = []
@@ -248,5 +249,5 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 
 
 if __name__ == '__main__':
-	performance = adaline("./resources/winequality-red.csv", epoch_limit=10000, learning_rate=0.00001, good_thresh=6, bad_thresh=5)
-	plot_preformace_adaline(performance, "./resources/winequality-red.csv", good_thresh=6, bad_thresh=5, save_plot=False)
+	performance = adaline("./resources/winequality-red.csv", epoch_limit=1, learning_rate=0.00001, good_thresh=7, bad_thresh=4)
+	plot_preformace_adaline(performance, "./resources/winequality-red.csv", good_thresh=7, bad_thresh=4, save_plot=False)
