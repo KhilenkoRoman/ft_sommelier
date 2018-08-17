@@ -342,5 +342,5 @@ def plot_preformace_adaline(performance, wine_data, good_thresh, bad_thresh, epo
 if __name__ == '__main__':
 	# data = holdout_prepare("./resources/winequality-red.csv", ratio=0.8)
 	data2 = k_fold_prepare("./resources/winequality-red.csv", k=8, shuffle=True)
-	performance = k_fold_adaline(data2, epoch_limit=15000, good_thresh=6, bad_thresh=5, learning_rate=0.00001)
+	performance = k_fold_adaline(data2, epoch_limit=20000, good_thresh=6, bad_thresh=5, learning_rate=0.00001)
 	plot_preformace_adaline(performance, "./resources/winequality-red.csv", good_thresh=6, bad_thresh=5, save_plot=False)
