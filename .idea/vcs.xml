@@ -2,5 +2,12 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/EVAL/qweqw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/EVAL/rkhilenk" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/EVAL/ts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/EVAL/vibondar" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/martina" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/omiroshn" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rkhilenk" vcs="Git" />
   </component>
 </project>
